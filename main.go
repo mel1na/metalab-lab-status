@@ -22,7 +22,8 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/", getLabStatus)
+	http.HandleFunc("/lab", getLabStatus)
+	http.HandleFunc("/door", getDoorStatus)
 	http.HandleFunc("/favicon.ico", doNothing)
 
 	err := http.ListenAndServe(":3333", nil)
@@ -136,6 +137,10 @@ func getLabStatus(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(p)
+}
+
+func getDoorStatus(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented)
 }
 
 func doNothing(w http.ResponseWriter, r *http.Request) {
